@@ -14,10 +14,14 @@ module.exports = {
     },
     // CREATE
     addCategory: async(req, res) => {
-        const {name} = req.body;
-        // console.log(name);
-        await Category.create({name});
-        res.redirect('/admin/category');
+        try {     
+            const {name} = req.body;
+            // console.log(name);
+            await Category.create({name});
+            res.redirect('/admin/category');
+        } catch (error) {
+            res.redirect('/admin/category');
+        }
     },
     // UPDATE
     editCategory: async(req, res) => {
