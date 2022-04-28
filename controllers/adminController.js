@@ -19,6 +19,16 @@ module.exports = {
         await Category.create({name});
         res.redirect('/admin/category');
     },
+    // UPDATE
+    editCategory: async(req, res) => {
+        const {id, name} = req.body;
+        // console.log(id);
+        const category = await Category.findOne({_id: id});
+        category.name = name;
+        await category.save();
+        // console.log(category);
+        res.redirect('/admin/category');
+    },
 
     viewBank: (req, res) => {
         res.render('admin/bank/view_bank');

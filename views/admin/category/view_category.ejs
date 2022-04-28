@@ -67,8 +67,19 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
+    <%- include('add_modal.ejs') %> 
+    <%- include('edit_modal.ejs') %> 
     <%- include('../../partials/scripst.ejs') %> 
 
+    <script>
+        $('#dataTable').on('click', '.button-update', function(){
+            let id = $(this).data('id');
+            let name = $(this).data('name');
+            $('#edit-modal').modal('show');
+            $('.id').val(id)
+            $('.name').val(name)
+        })
+    </script>
 </body>
 
 </html>
