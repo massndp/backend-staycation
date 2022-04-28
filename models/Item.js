@@ -18,6 +18,10 @@ const itemSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    night:{
+        type: Number,
+        required: true
+    },
     isPopuler:{
         type: Boolean
     },

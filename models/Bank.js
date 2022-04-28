@@ -1,20 +1,19 @@
 const mongoose = require('mongoose');
 
-
-const featureSchema = new mongoose.Schema({
-    name: {
+const bankSchema = new mongoose.Schema({
+    nameBank: {
         type: String,
         required: true
     },
-    qty: {
-        type: Number,
+    nomorRekening: {
+        type: String,
         required: true
     },
-    imageUrl: {
+    name: {
         type: String,
         required: true
     },
 
 })
 
-module.exports = mongoose.model('Feature', featureSchema);
+module.exports = mongoose.model('Bank', bankSchema);
