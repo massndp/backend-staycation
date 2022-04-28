@@ -2,15 +2,28 @@ const Category = require('../models/Category');
 
 module.exports = {
     viewDashboard : (req, res) => {
-        res.render('admin/dashboard/view_dashboard');
+        res.render('admin/dashboard/view_dashboard', {
+            title: "Staycation | Dashboard"
+        });
     },
 
     // CATEGORY
     // READ
     viewCategory: async(req, res) => {
-        const category = await Category.find();
-        // console.log(category);
-        res.render('admin/category/view_category', {category});
+       try {
+            const category = await Category.find();
+            // console.log(category);
+            const alertMessage = req.flash('alertMessage');
+            const alertStatus = req.flash('alertStatus');
+            const alert = {message: alertMessage, status: alertStatus};
+            res.render('admin/category/view_category', {
+                category, 
+                alert,
+                title: "Staycation | Category"
+            });
+       } catch (error) {
+            res.render('admin/category')
+       }
     },
     // CREATE
     addCategory: async(req, res) => {
@@ -18,39 +31,65 @@ module.exports = {
             const {name} = req.body;
             // console.log(name);
             await Category.create({name});
+            req.flash('alertMessage', 'Success add category');
+            req.flash('alertStatus', 'success');
             res.redirect('/admin/category');
         } catch (error) {
+            req.flash('alertMessage', `$error.message`);
+            req.flash('alertStatus', 'danger');
             res.redirect('/admin/category');
         }
     },
     // UPDATE
     editCategory: async(req, res) => {
-        const {id, name} = req.body;
-        // console.log(id);
-        const category = await Category.findOne({_id: id});
-        category.name = name;
-        await category.save();
-        // console.log(category);
-        res.redirect('/admin/category');
+
+        try {
+            const {id, name} = req.body;
+            // console.log(id);
+            const category = await Category.findOne({_id: id});
+            category.name = name;
+            await category.save();
+            req.flash('alertMessage', 'Success update category');
+            req.flash('alertStatus', 'success');
+            res.redirect('/admin/category');
+            // console.log(category);
+        } catch (error) {
+            req.flash('alertMessage', `$error.message`);
+            req.flash('alertStatus', 'danger');
+            res.redirect('/admin/category');
+        }
     },
     // DELETE
     deleteCategory: async(req, res)  => {
+      try {
         const {id} = req.params;
         const category = await Category.findOne({_id: id});
         await category.remove();
-
+        req.flash('alertMessage', 'Success delete category');
+        req.flash('alertStatus', 'success');
         res.redirect('/admin/category');
+      } catch (error) {
+        req.flash('alertMessage', `$error.message`);
+        req.flash('alertStatus', 'danger');
+        res.redirect('/admin/category');
+      }
     },
 
     viewBank: (req, res) => {
-        res.render('admin/bank/view_bank');
+        res.render('admin/bank/view_bank', {
+            title: "Staycation | Bank"
+        });
     },
 
     viewItem: (req, res) => {
-        res.render('admin/item/view_item');
+        res.render('admin/item/view_item', {
+            title: "Staycation | Item"
+        });
     },
 
     viewBooking: (req, res) => {
-        res.render('admin/booking/view_booking');
+        res.render('admin/booking/view_booking', {
+            title: "Staycation | Booking"
+        });
     }
 }
