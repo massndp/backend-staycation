@@ -14,10 +14,37 @@
                         <th>Name Bank</th>
                         <th>Account Number</th>
                         <th>Account Name</th>
+                        <th>Image</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-               <tbody></tbody>
+               <tbody>
+                   <% for(let i = 0; i<bank.length; i++) {%>
+                        <tr>
+                            <td><%= i + 1 %> </td>
+                            <td><%= bank[i].nameBank %> </td>
+                            <td><%= bank[i].nomorRekening %> </td>
+                            <td><%= bank[i].name %> </td>
+                            <td><img src="http://localhost:3000/<%= bank[i].imageUrl %>" height="50px" alt=""></td>
+                            <td>
+                                <form action="">
+                                    <a href="javascript:void();" type="button" class="btn
+                                        btn-warning btn-circle button-update" 
+                                        data-id="<%= bank[i].id %>"
+                                        data-nomorrekening="<%= bank[i].nomorRekening %>"
+                                        data-namebank="<%= bank[i].nameBank %>"
+                                        data-name="<%= bank[i].name %>"
+                                    >
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button type="submit" class="btn btn-danger btn-circle">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% } %> 
+               </tbody>
             </table>
         </div>
     </div>

@@ -10,8 +10,10 @@ router.post('/category', adminController.addCategory);
 router.put('/category', adminController.editCategory);
 router.delete('/category/:id', adminController.deleteCategory);
 
+//ENDPOINT BANK
 router.get('/bank', adminController.viewBank);
 router.post('/bank', upload, adminController.addBank);
+router.put('/bank', upload, adminController.editBank);
 
 router.get('/item', adminController.viewItem);
 router.get('/booking', adminController.viewBooking);
