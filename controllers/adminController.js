@@ -2,6 +2,7 @@ const Category = require('../models/Category');
 const Bank = require('../models/Bank');
 const fs = require('fs-extra');
 const path = require('path');
+const { remove } = require('../models/Category');
 
 module.exports = {
     viewDashboard : (req, res) => {
@@ -144,6 +145,23 @@ module.exports = {
                 req.flash('alertStatus', 'success');
                 res.redirect('/admin/bank');
             }  
+        } catch (error) {
+            req.flash('alertMessage', `${error.message}`);
+            req.flash('alertStatus', 'danger');
+            res.redirect('/admin/bank');
+        }
+    },
+    // DELETE BANK
+    deleteBank: async(req, res) => {
+        try {
+            const {id} = req.params;
+            const bank = await Bank.findOne({_id: id});
+            await fs.unlink(path.join(`public/${bank.imageUrl}`));
+            await bank.remove();
+
+            req.flash('alertMessage', 'Success delete bank');
+            req.flash('alertStatus', 'success');
+            res.redirect('/admin/bank');
         } catch (error) {
             req.flash('alertMessage', `${error.message}`);
             req.flash('alertStatus', 'danger');
