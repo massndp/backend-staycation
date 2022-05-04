@@ -138,6 +138,7 @@ module.exports = {
                 bank.name = name;
                 bank.nameBank = nameBank;
                 bank.nomorRekening = nomorRekening;
+                bank.imageUrl = `images/${req.file.filename}`;
                 await bank.save();
                 req.flash('alertMessage', 'Success update Bank');
                 req.flash('alertStatus', 'success');
