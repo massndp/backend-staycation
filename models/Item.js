@@ -7,23 +7,24 @@ const itemSchema = new mongoose.Schema({
         required: true
     },
     price: {
-        type: number, 
+        type: Number, 
         required: true
     },
     country: {
         type: String,
-        default: Indonesia
+        default: "Indonesia"
     },
-    City: {
+    city: {
         type: String,
         required: true
     },
     night:{
         type: Number,
-        required: true
+        required: false
     },
     isPopuler:{
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     description:{
         type: String,
